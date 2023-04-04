@@ -1,0 +1,21 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: rocky8
+    image: docker://geerlingguy/docker-rockylinux8-ansible:latest
+    pre_build_image: true
+  - name: rocky9
+    image: docker://geerlingguy/docker-rockylinux9-ansible:latest
+    pre_build_image: true
+  - name: ubuntu20
+    image: geerlingguy/docker-ubuntu2004-ansible
+    pre_build_image: true
+  - name: ubuntu22
+    image: geerlingguy/docker-ubuntu2204-ansible
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

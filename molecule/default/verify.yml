@@ -1,0 +1,16 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+---
+- name: verify
+  hosts: all
+  tasks:
+  - name: check for path to apptainer
+    command: which apptainer
+    register: which_apptainer
+    changed_when: which_apptainer.rc != 0
+
+  - name: verify path to apptainer
+    assert:
+      that:
+      - "'/usr/local/bin/apptainer' in which_apptainer.stdout"
