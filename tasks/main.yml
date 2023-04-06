@@ -1,3 +1,4 @@
+---
 - name: Enable EPEL Repository on CentOS 8
   ansible.builtin.dnf:
     name: epel-release
