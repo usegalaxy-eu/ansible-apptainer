@@ -20,3 +20,14 @@
   ansible.builtin.package:
     name: apptainer
   when: ansible_distribution == "Ubuntu" or ansible_os_family == "RedHat"
+
+# Required for Ubuntu 23.10+ when apptainer is installed from Ubuntu PPA
+# Ref: https://github.com/apptainer/apptainer/issues/2691#issuecomment-2610689935
+# Ref: https://github.com/apptainer/apptainer/blob/main/INSTALL.md#apparmor-profile-ubuntu-2310
+- name: Create apparmor profile if one doesn't exist
+  copy:
+    src: apptainer
+    dest: /etc/apparmor.d/apptainer
+    force: false
+  notify: 'Reload apparmor'
+  when: ansible_distribution == 'Ubuntu' and ansible_distribution_release == 'noble'
